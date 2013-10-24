@@ -86,9 +86,11 @@ class PickOne(object):
             print(self.errormessage)
 
 
-if __name__ == '__main__':
-    PO = PickOne(['foo', 'bar', 'baz'])
-    print(PO.ask())
+def ask(choices,
+    message="Choose one from [{choices}]{default}: ",
+    errormessage="Invalid input", default=None):
+    """
+        ask is a shorcut instantiate PickOne and use .ask method
+    """
 
-    PO = PickOne({'f': 'foo', 'b': 'bar'}, default='f')
-    print(PO.ask())
+    return PickOne(choices, message, errormessage, default).ask()
