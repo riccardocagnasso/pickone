@@ -20,3 +20,16 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
+
+from setuptools import setup, find_packages
+setup(
+    name="pickone",
+    version="0.1",
+    packages=find_packages(),
+    author="Riccardo Cagnasso",
+    author_email="riccardo@phascode.org",
+    description="PickOne is a small handy library designed\
+    let the user choose between a set of values",
+    license="MIT",
+    keywords="python input choices",
+)
