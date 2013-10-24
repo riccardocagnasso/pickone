@@ -67,6 +67,9 @@ class PickOne(object):
         return self.message.format(choices=" ".join(choices), default=default)
 
     def ask(self):
+        """
+            The ask method is used to get the input from users
+        """
         while True:
             i = input(self.buildPrompt())
 
