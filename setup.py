@@ -31,5 +31,6 @@ setup(
     description="PickOne is a small handy library designed\
     let the user choose between a set of values",
     license="MIT",
-    keywords="python input choices",
+    keywords="python input choices shell",
+    url="https://github.com/riccardocagnasso/pickone"
 )
