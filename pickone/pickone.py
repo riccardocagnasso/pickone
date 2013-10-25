@@ -23,6 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 __author__ = "Riccardo Cagnasso <riccardo@phascode.org>"
 
+import collections as coll
+
 
 class PickOne(object):
     """
@@ -37,7 +39,7 @@ class PickOne(object):
         Keyword arguments:
         message (optional) --- the message to be displayed when asking for
         input. It's a template for "format" function and receives the
-        "{choices}" parameter.
+        "{choices}" and the {default} parameter.
         errormessage (optional) --- the message to be displayed when the user
         entered a incorrect answer
         default (optional) --- a default value to use if user provides no input
@@ -49,9 +51,11 @@ class PickOne(object):
         self.errormessage = errormessage
 
         if type(choices) == list:
-            self.choices = dict(zip(map(str, range(0, len(choices))), choices))
-        elif type(choices) == dict:
-            self.choices = {str(k): v for k, v in choices.items()}
+            self.choices = coll.OrderedDict(
+                zip(map(str, range(0, len(choices))), choices))
+        elif issubclass(choices.__class__, dict):
+            self.choices = coll.OrderedDict([(str(k), v)
+                for k, v in choices.items()])
 
         self.default = default
 
