@@ -45,10 +45,15 @@ class PickOne(object):
         default (optional) --- a default value to use if user provides no input
     """
     def __init__(self, choices,
-        message="Choose one from [{choices}]{default}: ",
-        errormessage="Invalid input", default=None):
+        message="Choose one from [{choices}]{default}{cancelmessage}: ",
+        errormessage="Invalid input", default=None, cancel=False, cancelkey='c',
+        cancelmessage='(press {cancelkey} to cancel)'):
         self.message = message
         self.errormessage = errormessage
+
+        self.cancel = cancel
+        self.cancelkey = cancelkey
+        self.cancelmessage = cancelmessage
 
         if type(choices) == list:
             self.choices = coll.OrderedDict(
@@ -68,7 +73,13 @@ class PickOne(object):
         else:
             default = ""
 
-        return self.message.format(choices=" ".join(choices), default=default)
+        if self.cancel:
+            cancelmessage = self.cancelmessage.format(cancelkey=self.cancelkey)
+        else:
+            cancelmessage = ''
+
+        return self.message.format(choices=" ".join(choices), default=default,
+            cancelmessage=cancelmessage)
 
     def ask(self):
         """
@@ -76,6 +87,9 @@ class PickOne(object):
         """
         while True:
             i = input(self.buildPrompt())
+
+            if self.cancel and i == self.cancelkey:
+                return None
 
             if i == "" and self.default is not None:
                 i = self.default
@@ -91,10 +105,13 @@ class PickOne(object):
 
 
 def ask(choices,
-    message="Choose one from [{choices}]{default}: ",
-    errormessage="Invalid input", default=None):
+    message="Choose one from [{choices}]{default}{cancelmessage}: ",
+    errormessage="Invalid input", default=None,
+    cancel=False, cancelkey='c',
+    cancelmessage='press {cancelkey} to cancel'):
     """
         ask is a shorcut instantiate PickOne and use .ask method
     """
 
-    return PickOne(choices, message, errormessage, default).ask()
+    return PickOne(choices, message, errormessage, default, cancel, cancelkey,
+        cancelmessage).ask()
