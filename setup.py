@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from setuptools import setup, find_packages
 setup(
     name="pickone",
-    version="0.1.1",
+    version="0.1.2",
     packages=find_packages(),
     author="Riccardo Cagnasso",
     author_email="riccardo@phascode.org",
